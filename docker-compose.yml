@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  mailharbor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mailharbor
+    hostname: mailharbor
+    restart: unless-stopped
+    network_mode: "host"
+    
+    # Volume mounts
+    volumes:
+      # Configuration file directory
+      - ./config:/config:rw
+      
+      # Data directories
+      - ./data:/data:rw
+      
+      # SSL certificate directory (optional)
+      # If you need to enable IMAPS, uncomment the line below and configure certificates
+      # - ./certs:/certs:ro
+    
+    environment:
+      - LOG_LEVEL=INFO
+      - TZ=Asia/Shanghai
+    
+    healthcheck:
+      test: ["CMD", "/healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

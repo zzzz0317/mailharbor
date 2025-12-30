@@ -1,0 +1,51 @@
+# MailHarbor account configuration example
+# Copy this file and rename it to your account name, e.g., user1.yaml
+
+enabled: false
+account:
+  # Dovecot IMAP login username
+  username: user1@example.com
+  
+  # Dovecot IMAP login password
+  # Can be plaintext or bcrypt-hashed
+  password: password123
+  
+  # Password scheme: PLAIN (plaintext) or BLF-CRYPT (bcrypt)
+  # Using plaintext will trigger a warning in logs
+  # To generate a bcrypt password: docker exec mailharbor python3 -m src.utils hash_password "your_password"
+  password_scheme: PLAIN
+
+source:
+  # Source mail server protocol: imap or pop3
+  protocol: imap
+  
+  # Source mail server address
+  host: imap.gmail.com
+  
+  # Source mail server port
+  # IMAP SSL: 993, IMAP: 143
+  # POP3 SSL: 995, POP3: 110
+  port: 993
+  
+  # Use SSL/TLS
+  ssl: true
+  
+  # Source mail server login username
+  username: user1@gmail.com
+  
+  # Source mail server login password
+  password: your_source_password
+  
+  # Fetch interval (seconds), optional. Defaults to global config if not set.
+  # poll_interval: 300
+  
+  # Retain source emails, optional. Defaults to global config if not set.
+  # keep_mail: true
+  
+  # Folders to fetch (IMAP only)
+  folders:
+    - INBOX
+    - Sent
+  
+  # Max emails to fetch per batch
+  batch_limit: 100

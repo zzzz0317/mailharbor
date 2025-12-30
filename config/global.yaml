@@ -1,0 +1,29 @@
+# MailHarbor global configuration
+
+dovecot:
+  imap_port: 143
+  imaps_port: 993
+  
+  # SSL/TLS certificate (optional)
+  # If not set, only non-encrypted IMAP (143) is enabled.
+  # If set, IMAPS (993) is also enabled.
+  ssl_cert: null           # e.g., /certs/dovecot.crt
+  ssl_key: null            # e.g., /certs/dovecot.key
+  
+  # Performance tuning
+  performance:
+    process_limit: 100
+    mail_max_userip_connections: 10
+    mail_fsync: optimized
+    mmap_disable: false
+    mail_prefetch_count: 20
+  
+  # FTS (Full-Text Search) configuration
+  fts:
+    enabled: true
+    plugin: xapian
+
+fetchmail:
+  poll_interval: 300       # Default fetch interval (seconds), 5 minutes
+  syslog: false
+  keep_mail: true          # Keep source emails by default
